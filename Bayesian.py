@@ -1,17 +1,16 @@
 import pandas as pd
 import numpy as np
 from math import pi, exp, sqrt
+from sklearn.model_selections import train_test_split
 
 # Load large MNIST-like dataset
 print("Loading data...")
-df = pd.read_csv("mnist_large.csv")  # Assumes 'label' is first column
-X = df.iloc[:, 1:].values  # Features: pixels
-y = df.iloc[:, 0].values   # Labels: digits
+X =  np.load('X_train.npy')  # Features: pixels
+y = np.load('y_train.npy')  # Labels: digits
 
 # Split into train/test sets
-train_size = 50000
-X_train, y_train = X[:train_size], y[:train_size]
-X_test, y_test = X[train_size:], y[train_size:]
+
+X_train,  X_test,y_train, y_test = train_test_split(X,y,train_size = 0.8,random_state=12)
 
 classes = np.unique(y_train)
 n_features = X_train.shape[1]
